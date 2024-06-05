@@ -1,0 +1,84 @@
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage{natbib}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{bbding}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{lipsum}
+\usepackage{tabularx}
+\usepackage{amsmath}
+\setlength{\columnseprule}{0.4pt}
+
+\let\Tiny\tiny
+\beamertemplatenavigationsymbolsempty
+
+\usetheme{Madrid}
+\definecolor{Green}{RGB}{43,134,75}
+\usecolortheme{lmugreen}
+\setbeamercolor{item projected}{bg=Green,fg=white}
+
+\begin{document}
+\title[Algebra \& Coumputer Science]{Title}
+\author[Ruben Triwari]{Ruben Triwari}
+\institute[LMU Munich]{
+    % \large
+    {\includegraphics[scale=0.032]{images/LMU_Muenchen_Logo.svg.png}} \\
+    Center for Information \& Language Processing (CIS), LMU Munich 
+}
+
+
+\begin{frame}
+  \frametitle{Formal languauges and automatas}
+  Let $\Sigma$ be an Alphabet and $U,V \subset \Sigma^{*}$ languages.\\
+  \vspace*{10px}
+  \noindent\begin{tabularx}{\textwidth}{@{}X|X@{}}
+    \text{Lanaguage as a formal series:}
+    \[ L = \sum (L,w)w\]
+    \[ 
+      \leftrightsquigarrow  L = 
+      \bigcup_{w \in \Sigma^{*}}
+      \underbrace{(L,w)}_\text{0 or 1}
+      \{w\} 
+    \]
+    & 
+    \text{Language defined in FSK:}
+    \[  L \subset \Sigma^{*}\] 
+
+  \end{tabularx}
+
+  \noindent\begin{tabularx}{\textwidth}{@{}X|X@{}}
+    \text{Defining plus and multiplication:}
+    \[ U + V = \sum ((U,w) + (V,w))w \]
+    \[
+      U \cdot V = \sum ((U,s)(V,t))w, w = st
+    \]
+    & 
+    \text{Operations we now out of FSK:}
+    \[  U \cup V = \{ w \text{ } | \text{ } w \in U \lor w \in V\}\] 
+    \[ U \cdot V = \{\ st \text{ } | \text{ } s \in U \land t \in V\}\]
+
+  \end{tabularx}
+  \end{frame}
+
+\begin{frame}
+  \frametitle{Formal languauges and automatas}
+  $\rightsquigarrow$ With these defintions of $+$ and $\cdot$ all languages
+  with the alphabet $\Sigma$ form an Algebra. \\
+  $\rightsquigarrow$ We can then define automatas with matrices 
+  $M \in (\Sigma^{*})^{n \times n}$\\
+  $\rightsquigarrow$ With that we can prove Kleene's theorem with matrix
+   multiplication:
+   \[ L \text{ regular language} 
+   \iff  L \text{ is accepted by a finite automata}\]
+  $\rightsquigarrow$ Finally, an Overview over weighted automatas and formal power series
+\end{frame}
+
+
+\bibliography{references}
+\bibliographystyle{acl_natbib}
+\end{document}
