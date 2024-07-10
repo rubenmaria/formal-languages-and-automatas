@@ -83,8 +83,6 @@
   \end{frame}
 }
 \frame{\titlepage}
-
-\section{History \& Motivation}
 \section{Formal Languages Definitions, Examples}
 \begin{frame}
   \frametitle{Alphabets \& Languages}
@@ -528,10 +526,57 @@
     \end{tikzpicture}
   \end{center}
 \end{frame}
-\section{Prove: Every rational language is accepted by a finite automaton}
-\section{Overview Weighted Automatons}
-\section{Conclusion}
-
+\begin{frame}
+  We can devide the all States $S = \{s_1,s_2,\dots,s_n\}$
+  in two:
+  \[1 = \{s_1\} \text{ and } 2 = \{s_2,s_3, \dots ,s_n\}\]
+  {\bf Automata with devided transition matrix and states:}
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+       \node[state] (q_0)   {$1$}; 
+       \node[state](q_1) [right=of q_0] {$2$};
+        \path[->] 
+        (q_0) edge[bend left, above]  node {M(1,2)} (q_1)
+              edge [loop above] node {M(1,1)} ()
+        (q_1) edge[bend left, below]  node {M(2,1)} (q_0)
+              edge [loop above] node {M(2,2)} ();
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+\begin{frame}
+  \frametitle{Proof sketch}
+  {\bf We can write $M^*$ in terms of our block matrices:}
+  \[ M(1,1)^* = M(1,1)^*+(M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(1,2)^* = M(1,1)^*M(1,2)(M(2,2)^* + M(2,1)M(1,1)^*M(1,2))^*\]
+  \[ M(2,1)^* = M(2,2)^*M(2,1)(M(1,1)^* + M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(2,2)^* = M(2,2)^*+(M(2,1)M(1,1)^*M(1,2))^*\]
+  \vspace{0.5cm}
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+       \node[state] (q_0)   {$1$}; 
+       \node[state](q_1) [right=of q_0] {$2$};
+        \path[->] 
+        (q_0) edge[bend left, above]  node {M(1,2)} (q_1)
+              edge [loop above] node {M(1,1)} ()
+        (q_1) edge[bend left, below]  node {M(2,1)} (q_0)
+              edge [loop above] node {M(2,2)} ();
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+\begin{frame}
+  \frametitle{Proof sketch}
+  {\bf We have reduced the problem to $n-1$:}
+  \[ M(1,1)^* = M(1,1)^*+(M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(1,2)^* = M(1,1)^*M(1,2)(M(2,2)^* + M(2,1)M(1,1)^*M(1,2))^*\]
+  \[ M(2,1)^* = M(2,2)^*M(2,1)(M(1,1)^* + M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(2,2)^* = M(2,2)^*+(M(2,1)M(1,1)^*M(1,2))^*\]\\
+  \vspace{0.5cm}
+  $\rightsquigarrow M(1,1)^*$ is rational, because its 1-dimensional\\
+  $\rightsquigarrow M(2,1), M(1,2)$ is rational, because $M$ is rational\\
+  $\rightsquigarrow M(2,2)^* \in (\Sigma^*)^{(n-1) \times (n-1)}$ 
+    needs to be proven, to be rational \\
+  $\rightsquigarrow $ With this reduction we can do an induction over the number of states
+\end{frame}
 
 
 
