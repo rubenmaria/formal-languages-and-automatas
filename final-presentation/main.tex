@@ -546,10 +546,10 @@
 \begin{frame}
   \frametitle{Proof sketch}
   {\bf We can write $M^*$ in terms of our block matrices:}
-  \[ M(1,1)^* = M(1,1)^*+(M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(1,1)^* = (M(1,1)+M(1,2)M(2,2)^*M(2,1))^*\]
   \[ M(1,2)^* = M(1,1)^*M(1,2)(M(2,2)^* + M(2,1)M(1,1)^*M(1,2))^*\]
   \[ M(2,1)^* = M(2,2)^*M(2,1)(M(1,1)^* + M(1,2)M(2,2)^*M(2,1))^*\]
-  \[ M(2,2)^* = M(2,2)^*+(M(2,1)M(1,1)^*M(1,2))^*\]
+  \[ M(2,2)^* = (M(2,2)+M(2,1)M(1,1)^*M(1,2))^*\]
   \vspace{0.5cm}
   \begin{center}
     \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
@@ -566,10 +566,10 @@
 \begin{frame}
   \frametitle{Proof sketch}
   {\bf We have reduced the problem to $n-1$:}
-  \[ M(1,1)^* = M(1,1)^*+(M(1,2)M(2,2)^*M(2,1))^*\]
+  \[ M(1,1)^* = (M(1,1)+M(1,2)M(2,2)^*M(2,1))^*\]
   \[ M(1,2)^* = M(1,1)^*M(1,2)(M(2,2)^* + M(2,1)M(1,1)^*M(1,2))^*\]
   \[ M(2,1)^* = M(2,2)^*M(2,1)(M(1,1)^* + M(1,2)M(2,2)^*M(2,1))^*\]
-  \[ M(2,2)^* = M(2,2)^*+(M(2,1)M(1,1)^*M(1,2))^*\]\\
+  \[ M(2,2)^* = (M(2,2)+M(2,1)M(1,1)^*M(1,2))^*\]\\
   \vspace{0.5cm}
   $\rightsquigarrow M(1,1)^*$ is rational, because its 1-dimensional\\
   $\rightsquigarrow M(2,1), M(1,2)$ is rational, because $M$ is rational\\
