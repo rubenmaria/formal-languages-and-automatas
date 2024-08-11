@@ -155,7 +155,7 @@ can really be anything. We could also define an Alphabet as subset of
 the natural numbers $\Sigma \subset \mathbb{N}$. This is equalivant to
 the previous definition, becaus we can always find an isomorphism between
 a finite amount of objects and the natural numbers. In other words 
-we can always just number a finite amount of objects. The above definition
+we can always number a finite amount of objects. The above definition
 results in more readable words, thus resulting in more readable problems.
 Furhtermore its unintuitive to have words full of numbers and languages
 full of number series. That is why im chosing this definition, like most
@@ -164,7 +164,7 @@ Now with our first building block defined we can define words, which are just
 a series of characters in an alphabet.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet, then $w$ is a series of characters out of
-  $\Sigma$. The empty words which contains no characters, 
+  $\Sigma$. The empty word which contains no characters, 
   is denoted by $\epsilon$
 \end{definition}
 \begin{example}
@@ -179,7 +179,7 @@ a series of characters in an alphabet.
 The empty word $\epsilon$ is analogous to the empty set in Set theory.
 It has a lot uf uses, but one obvious is that now one can define 
 a Monoid over words $(M, \cdot, \Sigma, \epsilon)$.
-M is a set of words and plus is concetanation of words, then 
+M is a set of words and multiplication is concetanation of words, then 
 $\epsilon$ is the neutral element of the Monoid. Which brings us to
 the next definition.
 \begin{definition}
@@ -191,6 +191,8 @@ the next definition.
     w^n = \underbrace{w\cdot w \cdot \dots w}_{\text{n times}}
     \text{ where } n \in \mathbb{N}
   \]
+  and
+  \[ w^0 = \epsilon.\]
 \end{definition}
 In simple terms a concatenation of two words is just a new word with 
 the two words chained togehter.\\
@@ -349,29 +351,104 @@ set version.
   \end{enumerate}
   %Definition is out of theoretical computer science book (german)
 \end{definition}
+In simple terms, an finite automata gets an input string and a starting 
+state. Then it works through the input string, starting at the first charater,
+carrying the starting state to another according to the transition function.
+Exactly the same procedure, for the second input string character and the 
+remainding characters. If this process ends up in an accepting state, 
+the automata accepts the input string. Consequently, 
+the finite automata generates a language, namely the words that the automata 
+accepts. The definition above is one possible way to encode a finite automata. 
+Like with graphs we can encode the transition function of an finite
+automata, with just a matrix.
+\begin{definition}
+  Let $M = (Q, \Sigma, \delta, q_0, F)$ be an abitrary finite 
+  automata, where $Q = \{ s_1, s_2, \dots s_n\}.$ \\
+  Frthermore, we need $H(i,j) = \{ \alpha \in \Sigma : \delta(s_i, \alpha) = s_j\}$
+  and two helper functions:
+  \[
+    w: \Sigma^\times \to \Sigma^*, 
+    \delta': \mathbb{N} \times \mathbb{N} \to \Sigma^*
+  \]
+  where
+  \[
+    w(\{a_1,a_2,\dots, a_n\}) = a_1a_2\dots a_n
+  \]
+  \[
+    \delta'(i, j) = 
+      \begin{cases}
+        w(H(i,j)), & \text{if} \hspace{0.2cm} \exists \alpha \in \Sigma: 
+          \delta(s_i, \alpha) = s_j \\
+        0, & \text{otherwise}
+      \end{cases}.
+  \]
+  Then the finite automata $M$ can be encoded with a Matrix
+    $A \in (\Sigma^*)^{n \times n}$
+  in the following way:
+  \[
+    A = 
+    \begin{pmatrix}
+      \delta'(1,1)       & \delta'(1,2) & \delta'(1,3) & \dots & \delta'(1,n) \\
+      \delta'(2,1)       & \delta'(2,2) & \delta'(2,3) & \dots & \delta'(2,n) \\
+      \vdots             & \vdots       & \vdots       & \ddots& \vdots\\
+      \delta'(n,1)       & \delta'(n,2) & \delta'(n,3) & \dots & \delta'(n,n) \\
+    \end{pmatrix}
+  .\]
+  We can denote a state transition $s_i \to s_j$ with $s_iA_{ij} = s_j$.
+  The kleene star of a Matrix can intuively  be defined as:
+  \[
+    A^* = E_n + A + A^2 + A^3 \dots  = \sum_{i \in \mathbb{N}_0} A^i.
+  \]
+  Now we can write our finite automata in a shorter way:
+  \[
+    M' = (\Sigma, A, q_0, F)
+  \]
+\end{definition}
+This definition only works, because we have finite sets. Note that we can omit
+the state set, since as mentioned above, there always exist an isomorphism
+between a set with finite objects and a subset of the natural numbers. The first
+object gets the number one, the second the number two, and so forth. The new
+definition of the state transition function works like a lookup table, when one
+wants to know what characters map state $i$ to state $j$, its a simple lookup:
+$M_{ij}$.
+
 \begin{example}
   Here is a simple automata depicted, where the circles are states
   , the arrows are transitions, the start is indicating the initial 
   state, and the double lined circle is the accepting state.
-  $M = ()$
-    \begin{tikzpicture}
+  \[ 
+    M_\text{tuple} = (\{s_1, s_2\}, \{a,b,c\}, \delta_0, s_1, \{s_2\}),
+    M_\text{matrix} = (\{a,b,c\}, A, s_1, \{ s_2 \})
+  \]\\
+  where
+  \[
+    \delta_0(s_1, a) = s_1, \hspace{0.2cm} 
+    \delta_0(s_1, b) = s_2, \hspace{0.2cm} \delta_0(s_2,c) = s_2
+  \]
+  and
+  \[ 
+    A = 
+    \begin{pmatrix}
+      a & b \\
+      0 & c 
+    \end{pmatrix}.
+  \]
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto]
       \node[state,initial] (q1) at (0,0) {$s_1$};
       \node[state,accepting] (q2) at (3,0) {$s_2$};
-      \draw (q1) edge[loop above] node{x} (q1)
-      (q2) edge[loop above] node{z} (q2);
-      \draw[->](0.5,0)--(2.5,0);
-      \node[fill=white] at (1.5,0.3) {y};
+      \path[->] (q1) edge[loop above] node{a} (q1)
+      (q2) edge[loop above] node{c} (q2)
+      (q1) edge[bend left] node{b} (q2);
     \end{tikzpicture}
+  \end{center}
+  The resulting accepting formal language is:
+  \[ \text{Set represntation: } L = \{a^nbc^n : n \in \mathbb{N}\}\]
+  \[
+    \text{Formal power series represntation: } L = a^*\cdot b\cdot c^* 
+  = a^*bc^*
+\]
 \end{example}
-
-
-
-
-
-
-
-
-
 % Define Formal languages (Sets and Power sereies) 
 % and automatas (Tuple and Matrix)
 \section{Formal Languages: Sets vs. Formal Power Series}
