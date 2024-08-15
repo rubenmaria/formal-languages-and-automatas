@@ -741,13 +741,54 @@ With those important properties, we can now move on to the first prove.
   in $A^*$ are rational languages.
   We will prove this statement via induction over the number of 
   states, namely the dimension of the square matrix $n \in \mathbb{N}$.\\
-  {\bf Base case $n=1$}:\\
+  {\bf Base case: $n=1$}\\
   Thus
   \[
     A \in \fps{B}^{1 \times 1} = \fps{B}.
   \]
   We know that $A \in \fps{B}$ is rational, but that also means
-  that $A^*$ is per definition rational. 
+  that $A^*$ is per definition rational, which finishes the base case.\\
+  {\bf Inudction step: $n \to n+1$}\\
+  We can assume the claim holds for $n \in \mathbb{N}$ and need to prove it
+also holds for $n+1$. we can assume that a transition matrix with dimenion 
+$n \times n$ has only rational entries. \\
+Let $A \in \fps{B}^{(n+1) \times (n+1)}$ be a transition function of an
+arbitrary finite automata. 
+Our goal is it to reduce the matrix $A$ by one dimension. In order to do
+that we devide the matrix in four blocks:
+\[
+  A = 
+  \begin{pmatrix}
+    A(1,1) & A(1,2) \\
+    A(2,1) & A(2,2)
+  \end{pmatrix}
+\]
+where 
+\[ 
+  \textcolor{brown}{ A(1,1) }\in \fps{B}^{1 \times 1},
+  \textcolor{orange}{ A(2,1)} \in \fps{B}^{n \times 1}, 
+  \textcolor{blue}{A(1,2)} \in \fps{B}^{1 \times n},
+  \textcolor{red}{A(2,2)} \in \fps{B}^{(n-1) \times (n-1)}
+\]
+visually:
+\begin{center}
+  \begin{tikzpicture}[square/.style={regular polygon,regular polygon sides=4}]
+      \node at (0,0) [square,draw,minimum width=3cm] (m) {};
+      \node at (0.3,0.8) [rectangle,draw,minimum height=0.4cm,minimum width=1.4cm,fill=blue] (m21) {};
+      \node at (-0.75,-0.25) [rectangle,draw,minimum height=1.4cm,minimum width=0.5cm,fill=orange] (m12) {};
+      \node at (0.3,-0.25) [square,draw,minimum width=2cm,fill=red] (m) {};
+      \node at (-0.75,0.8) [square,draw,minimum width=0.6cm,fill=brown] (m) {};
+  \end{tikzpicture}
+\end{center}
+We can interpret our block matrix as a transition matrix with four entries,
+thus having two states. Our new two states consists of the original states
+in the following way:
+\[
+  \mathbf{1} = \{1\} \text{ and } \mathbf{2} = \{2,3,4, \dots n + 1\}
+\]
+
+  
+
 
 \end{proof}
   
