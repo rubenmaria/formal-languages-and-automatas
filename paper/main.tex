@@ -71,7 +71,6 @@ ex-am-ple
 \includegraphics[height=40mm]{sigillum.png}
 \end{center}
 \vspace*{10mm}
-
 \title{Formal Languages and Automatas}
 \date{\vspace{-3ex}}
 {\let\newpage\relax\maketitle}
@@ -80,7 +79,7 @@ ex-am-ple
 \begin{center}
 \begin{large}
 \begin{Large}
-Seminar Paper on Formal Languages and Automatas\\
+Seminar Paper on Formal Languages and Automata\\
 \end{Large}
 for the course ``Algebra \& Computer Science'' \\
 \end{large}
@@ -122,11 +121,6 @@ Munich, \date{\today} \hspace{50mm} Author
 \end{flushleft}
 \cleardoublepage{}
 
-
-\section*{Abstract}
-Abstract...
-\textbf{Keywords}: Math
-
 \newpage
 \tableofcontents
 \newpage
@@ -138,12 +132,29 @@ Abstract...
 \renewcommand{\headrulewidth}{0pt} %obere Trennlinie
 
 \section{Introduction}
+This paper aims to give a gentle introduction to the world of
+automata with formal power series. Formal power series are really
+useful for weighted automata, but not so much for the topics we are
+covering in this paper. Thus, some proofs may not be as simple as in 
+other literature. First, we will go over some definitions, starting
+from scratch, but ending up with the definition of an automaton using
+a matrix and  formal power series. In the third chapter, we will
+provide some intuition as to why one would use a formal power
+series in this context and show that the definition of formal 
+language using formal power series and sets is equivalent.
+At the end of the third chapter, we will discuss why formal power 
+series are so powerful in the context of automata theory.
+In the fourth chapter, we will prove the kleene's theorem using the
+formal power series representation of sets. 
+At the end, we will give  an outlook on weighted automata.
+
 \section{Backround}
-First of all, we need to define some structures and ideas,
-that will be really important in this paper. We will define 
-formal languages in two ways and then automatas arcordingly.
-A formal language is just a set of words, where words are 
-a series of characters from an alphabet.
+Firstly, we need to define some structures and ideas, 
+that will be really important in this paper.
+We will define  formal languages in two ways and then 
+the automata accordingly. 
+A formal language is just a set of words, where words are
+a series of characters from an alphabet
 \begin{definition}
   An Alphabet is an abritrary non empty finite set denoted with $\Sigma$
 \end{definition}
@@ -155,16 +166,15 @@ a series of characters from an alphabet.
   \end{enumerate}
 \end{example}
 This definition is rather general, because an alphabet $\Sigma$
-can really be anything. We could also define an Alphabet as subset of
-the natural numbers $\Sigma \subset \mathbb{N}$. This is equalivant to
-the previous definition, becaus we can always find a one-to-one map between
+can really be anything. We could also define an alphabet as a subset of
+the natural numbers $\Sigma \subset \mathbb{N}$. This is equivalent to
+the previous definition, because we can always find a one-to-one map between
 a finite amount of objects and the natural numbers. In other words 
 we can always enumerate a finite amount of objects. The above definition
 results in more readable words, thus resulting in more readable problems.
-Furhtermore its unintuitive to have words full of numbers and languages
-full of number series. That is why im chosing this definition, like most
+Furthermore, it's unintuitive to have words full of numbers and languages full of number series. That is why we are choosing this definition, like most
 of the literature.\\
-Now with our first building block defined we can define words, which are just
+Now that our first building block is defined, we can define words, which are just
 a series of characters in an alphabet.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet, then $w$ is a series of characters out of
@@ -189,11 +199,11 @@ a series of characters in an alphabet.
     \item $\Sigma = \{1,2,3\} \rightsquigarrow w_4 = \epsilon$
   \end{enumerate}
 \end{example}
-The empty word $\epsilon$ is analogous to the empty set in Set theory.
-It has a lot uf uses, but one obvious is that now one can define 
-a Monoid over words $(M, \cdot, \Sigma, \epsilon)$.
-M is a set of words and multiplication is concetanation of words, then 
-$\epsilon$ is the neutral element of the Monoid. Which brings us to
+The empty word $\epsilon$ is analogous to the empty set in set theory.
+It has a lot of uses, but one obvious one is that now one can define 
+a monoid over words $(M, \cdot, \Sigma, \epsilon)$.
+M is a set of words and multiplication is the concatenation of words, then 
+$\epsilon$ is the neutral element of the monoid. Which brings us to
 the next definition.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet and  $w$, $v$ words with 
@@ -206,9 +216,9 @@ the next definition.
     w^{n+1} &:= w^n\cdot w
   \end{align*}
 \end{definition}
-In simple terms a concatenation of two words is just a new word with 
-the two words chained togehter.\\
-Now we can again build on words to define langauges.
+In simple terms, a concatenation of two words is just a new word with
+the two words were chained together. Now we can again build on
+words to define languages.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet, then a formal language is a 
   set of words, with characters in $\Sigma$.
@@ -222,10 +232,11 @@ Now we can again build on words to define langauges.
   \end{enumerate}
 \end{example}
 This definition is really clear and simple. We will see a less intuitive way to
-define language shortly. Obviously the simpler one has some downsides, 
+define language shortly. Obviously, the simpler one has some downsides, 
 which we will discuss later in the paper. \\
-The kleene star $^*$ is a really powerful operator, to define it we need
-to first define contenation for languages.
+The kleene star $^*$ is a really powerful operator, to define it, we need
+to first define contention for languages.
+\pagebreak
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet and  $L$, $V$ languages with 
   words constructed out of $\Sigma$.
@@ -239,9 +250,9 @@ to first define contenation for languages.
   \end{align*}
   % wikipedia kleene star
 \end{definition}
-In simple terms we are creating a new language by compbining every word
-of the first language with every word of the second.
-Now we are able to define the kleene star operator.
+In simple terms, we are creating a new language by
+combining every word of the first language with every word of
+the second. Now we are able to define the kleene star operator
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet and  $L$  a language with 
   words constructed out of $\Sigma$.
@@ -250,12 +261,15 @@ Now we are able to define the kleene star operator.
     L^* := \bigcup_{i \in \mathbb{N}_0} L^i = 
     L^0 \cup L^1 \cup L^2 \cup \dots
   \]
+  and 
+  \[ 
+    L\hat{\mkern6mu} := \bigcup_{i \in \mathbb{N}} L^i = 
+     L^1 \cup L^2 \cup L^3 \cup \dots
+  \]
 \end{definition}
-In simple terms it generates all possible permutation of abriatary length
-of a formal language. This is really powerful, because $\Sigma^*$ is the
-biggest language one can construct from the alphabet $\Sigma$. Thus every 
-language $L$ generated by $\Sigma$ is just a subset of $\Sigma^*$.\\
-Unintuively, we can also write a formal language as a formal power series.
+In simple terms, it generates all possible permutations of arbitrary length of a formal language. This is really powerful, because $\Sigma^*$ is the
+biggest language one can construct from the alphabet $\Sigma$. Thus, every  language $L$ generated by $\Sigma$ is just a subset of $\Sigma^*$.\\
+Unintuitively, we can also write a formal language as a formal power series.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet, then a formal language can be 
   written as formal power series $L$:
@@ -291,18 +305,16 @@ Unintuively, we can also write a formal language as a formal power series.
     \end{cases}.
   \]
   In this case we just write $L = a$.
+  The language with no words is denoted by $L = 0$.
     %schützenberg
 \end{definition}
-This looks like a sum, we call it series, but it is actually a map from 
-words to zero or one. The sum is a way to write a function definition: Infront
-of every word $w \in \Sigma^*$ in the series, there is a $x \in \mathbb {B}$,
-which is zero or one. So we can interpret every element in the series as an 
+This looks like a sum, we call it a series, but it is actually a map from 
+words to zero or one. The sum is a way to write a function definition: In front of every word $w \in \Sigma^*$ in the series, there is a $x \in \mathbb {B}$, which is zero or one. So we can interpret every element in the series as an 
 assignment: $w \mapsto x$.
-All words that map to one, are in the language, the others are not. So we can write a formal language
-as a function $\Sigma^* \to \mathbb{B}$.\\
-The representation with sets has the andvantage that a formal language
+All words that map to one are in the language, the others are not. So we can write a formal language as a function $\Sigma^* \to \mathbb{B}$.\\
+The representation with sets has the advantage that a formal language
 will inherit all operations on sets like complement, union, and intersection.
-Those operations are really useful, thus we will define similar on the power
+Those operations are really useful, so we will define similar ones on the power
 series version.
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet and $L, V \in \mathbb{B}\langle \langle
@@ -373,6 +385,10 @@ series version.
   \[
     L^* := L^0 + L^1 + L^2 + L^3 + \dots = \sum_{i \in \mathbb{N}_0} L^i.
   \]
+  and
+  \[
+    L\hat{\mkern6mu} :=  L^1 + L^2 + L^3 + \dots = \sum_{i \in \mathbb{N}_0} L^i.
+  \]
 \end{definition}
 With these operation defined our two versions of formal languages are 
 powerful tools, which will be compared in the following sections. In order
@@ -395,15 +411,10 @@ set version.
   \end{enumerate}
   %Definition is out of theoretical computer science book (german)
 \end{definition}
-In simple terms, an finite automata gets an input string and a starting 
-state. Then it works through the input string, starting at the first charater,
-carrying the starting state to another according to the transition function.
-Exactly the same procedure, for the second input string character and the 
-remainding characters. If this process ends up in an accepting state, 
-the automata accepts the input string. Consequently, 
-the finite automata generates a language, namely the words that the automata 
-accepts. The definition above is one possible way to encode a finite automata. 
-Like with graphs we can encode the transition function of an finite
+In simple terms, a finite automaton gets an input string and a starting  state. Then it works through the input string, starting at the first character and carrying the starting state to another according to the transition function.
+Exactly the same procedure applies for the second input string character and the remaining characters. If this process ends up in an accepting state, the automata accept the input string. Consequently, the finite automata generate a language, namely the words that the automata 
+accepts. The definition above is one possible way to encode a finite automaton. 
+Like with graphs, we can encode the transition function of a finite
 automata, with just a matrix.
 \begin{definition}
   Let $M = (Q, \Sigma, \delta, q_0, F)$ be an abitrary finite 
@@ -436,10 +447,15 @@ automata, with just a matrix.
   We can denote a state transition $s_i \to s_j$ with $s_iA_{ij} = s_j$.\\
   {\bf Note:} We definined $A \in \fps{B}^{n \times n}$ and not 
   $A \in \Sigma^{n \times n}$, because otherwise the defintion is not closed
-  under matrix multiplication, nor matrix addition.\\
-  The kleene star of a Matrix can intuively  be defined as:
+  under matrix multiplication, nor matrix addition.
+  \pagebreak\\
+  The kleene star of a Matrix can intuively be defined as:
   \[
     A^* = E_n + A + A^2 + A^3 \dots  = \sum_{i \in \mathbb{N}_0} A^i
+  \]
+  and
+  \[
+    A\hat{\mkern6mu} = A + A^2 + A^3 \dots  = \sum_{i \in \mathbb{N}} A^i
   \]
   where
   \[ E_n \in \fps{B}^{n \times n}\]
@@ -450,18 +466,15 @@ automata, with just a matrix.
       0        & \text{otherwise}
     \end{cases} \in \fps{B}
   \]
-  Now we can write our finite automata in a shorter way:
+  Now, we can write our finite automata in a shorter way:
   \[
     M' = (\Sigma, A, q_0, F)
   \]
 \end{definition}
 This definition only works, because we have finite sets. Note that we can omit
-the state set, since as mentioned above, there always exist a one-to-one map
-between a set with finite objects and a subset of the natural numbers. The first
-object gets the number one, the second the number two, and so forth. The new
-definition of the state transition function works like a lookup table, when one
-wants to know what characters map state $i$ to state $j$, its a simple lookup:
+the state set, since, as mentioned above, there always exists a one-to-one map between a set with finite objects and a subset of the natural numbers. The first object gets the number one, the second the number two, and so forth. The new definition of the state transition function works like a lookup table, when one wants to know what characters map state $i$ to state $j$, it is a simple lookup:
 $M_{ij}$.
+
 
 \begin{example}
   Here is a simple automata depicted, where the circles are states
@@ -503,17 +516,15 @@ $M_{ij}$.
 % Define Formal languages (Sets and Power sereies) 
 % and automatas (Tuple and Matrix)
 \section{Formal Languages: Sets vs. Formal Power Series}
-In this chapter we will discuss the obvious diffrences and 
-simillarities of both representations. First we will give intuition,
-why one might use a seires to represent a function definition.
+In this chapter, we will discuss the obvious differences and  similarities between both representations. First, we will give an intuition as to why one might use a series to represent a function definition.
 Secondly, we will map the formal power series version into the set
 version and the other way around, to get a better understanding of both.
 Lastly, we will discuss why formal power series are more powerful
 than just sets.\\
 The intuition behind the notation of formal power series is quite simple.
 The operation defined on the formal power series, which are maps, 
-are really close to a series. For addition, formal power series and 
-normal series are quite simillar, namely defined pointwise.\\
+are really close to a series. In addition, formal power series and 
+Normal series are quite similar, namely defined pointwise.\\
 In the following are $L,V \in \fps{B}$ and $A,B$ series.
 \[ 
   L + V = \sum_{w \in \Sigma^*} ((L,w) + (V,w))w \hspace{0.3cm}
@@ -521,7 +532,7 @@ In the following are $L,V \in \fps{B}$ and $A,B$ series.
   A + B = \sum_{n \in \mathbb{N}} (a_n + b_n) x^n
 \]
 The multiplication defined on formal power series are again really close
-to the cauchy product of series.
+to the Cauchy product of series.
 In the following are $L,V \in \fps{B}$ and $A,B$ series.
 \[
   L \cdot V = \sum_{\substack{u,v \in \Sigma^* \\ w=uv}} 
@@ -530,19 +541,13 @@ In the following are $L,V \in \fps{B}$ and $A,B$ series.
   A \cdot B = 
   \sum_{\substack{i,j \in \mathbb{N} \\ n = i + j}} (a_i \cdot b_j) x^n
 \]
-Consequently, it is quite handy to use a formal power series as function 
-definition, because the operations seem natural with series.
+Consequently, it is quite handy to use a formal power series as a function definition, because the operations seem natural with series.
 Despite the notation being quite confusing at first glance.\\
-%Maybe subsection
-Next we will show that bot representations of a formal language are 
-equivalent, by mapping one to another.
-To be sure that both representation are actually equivalent, we need to
-show there exist an bijective map, between formal power series and the
-set of words. This map needs to preserve the structure, that means the
-order of function application and operator application must be irrelevant.
-Such maps are called isomporphism and structures for that a isomorphism 
-exist are called isomporphic to each other. Thus we want tho show that
-both representation are isomorphic.
+Next, we will show that both representations of a formal language are  equivalent, by mapping one to another.
+To be sure that both representations are actually equivalent, we need to show there exists a bijective map between the formal power series and the set of words. 
+This map needs to preserve the structure, which means the order of function application and operator application must be irrelevant.
+Such maps are called isomorphisms, and the structures for that an isomorphism 
+exist are called isomorphic to each other. Thus, we want to show that both representation are isomorphic.
 \begin{proof}
   Let $\Sigma$ be an fixed alphabet, then we claim that:
   \[
@@ -653,28 +658,18 @@ both representation are isomorphic.
     Thus $\phi$ is an isomorphism and our claim follows.
 \end{proof}
 \\\\
-Now we have shown that both definition are equivalent, but why should
-one use the less natural formal power series definition? The anwser
-to this, as so often in mathematics, is {\bf abstraction}. Finite automata
-are accepting formal languages, thus we can say they generate a formal
-language. When abstracting from finite automata's to weighted automata's
-which have a weight or cost between each transition, the generated
-object is not longer a language, but a map that assigns a weight or
-cost to each word. Generally, this weight or cost can be seen as a 
-semiring (a Ring that does not have necessarily an additive inverse),
-which are objects that behave like numbers, we will denote an arbitrary
-semiring with $\mathbb{S}$. Those maps, that get accepted by an weighted
+Now we have shown that both definitions are equivalent, but why should one use the less natural formal power series definition? The answer to this, as so often in mathematics, is {\bf abstraction}. Finite automata are accepting formal languages, thus we can say they generate a formal language.
+ When abstracting from finite automata's to weighted automata's, which have a weight or cost between each transition, the generated object is not longer a language, but a map that assigns a weight or cost to each word. 
+Generally, this weight or cost can be seen as a semi-ring (a ring that does not necessarily have an additive inverse), which are objects that behave like numbers. We will denote an arbitrary
+semi-ring with $\mathbb{S}$. Those maps, that get accepted by a weighted
 automata, have the signature $L: \Sigma^* \to \mathbb{S}$ and are 
-indeed a formal power series over $\mathbb{S}$, consequently $L \in \fps{S}$.
-To Summarize, finite automata generate formal power series over $\mathbb{B}$
-and weighted automata generate formal power series over $\mathbb{S}$. So 
-formal power series are in fact an abstraction of formal languages.
+indeed, a formal power series over $\mathbb{S}$, consequently $L \in \fps{S}$.
+To summarize, finite automata generate formal power series over $\mathbb{B}$
+and weighted automata generate formal power series over $\mathbb{S}$. So  formal power series are, in fact, an abstraction of formal languages.
 \section{Kleene's theorem (Power series, Matrix Automata)}
-In this chapter we will examine, what kind of languages get accepted 
-by an finite automata. In order to do that, we will prove that all
-languages that get accepted by an finite automata are rational and every
-rational language can be generated by an finite automata (kleene's theorem).
-A rational language is defined inductively.
+In this chapter, we will examine, what kinds of languages get accepted by a finite automaton. In order to do that, we will prove that all languages that get accepted by an finite automaton are rational, and every rational language can be generated by a finite automaton (kleene's theorem).
+A rational language is defined inductively.\\
+\pagebreak
 \begin{definition}
   Let $\Sigma$ be an fixed alphabet, then a rational language 
   is defined as follows:
@@ -690,24 +685,21 @@ A rational language is defined inductively.
         is again rational $V = L^*$.
   \end{enumerate}
 \end{definition}
-So we start with just one character and then building with our operations
-step by step  a language. To show kleene's theorem we have to prove two
-direction. First we will prove that finite automata only accept rational 
-languages. Afterwards, we will prove that every rational language is 
-accepted by an finite automata. In an effort to do that, we need to 
-understand certain properties of the Matrix encoding of finite automatas.
+So we start with just one character and then building with our operations step by step  a language. 
+To show kleene's theorem, we have to prove two directions. 
+First, we will prove that finite automata only accept rational  languages. 
+Afterward, we will prove that every rational language is accepted by a finite automaton. 
+In an effort to do that, we need to understand certain properties of the matrix encoding of finite automata.
 Raising the power of two of a Matrix is defined by:\\
 Let $A \in \fps{B}^{n\times n}$ be an arbitrary matrix, then
 \[ 
   (A^2)_{ij} = \sum_{k=1}^{n} A_{ik}A_{kj}.
 \]
-As mentioned before, this matrix is a transistion function of an finite
-automata, where we can look up, what character carry one state in another.
-In $A_{ij}$ is the character that carry $i$ to $j$, thus multiplying
-$A$ by itself, gives us a new Matrix with all words with length two,
-given as input and $i$ is the starting node would
-carry $i$ to $j$ in two steps. In the formula above we see that we
-are trying to go throug all nodes $k \in \{1, 2, 3, \dots n\}$
+As mentioned before, this matrix is a transition function of a finite
+automata, where we can look up what character carries one state in another.
+In $A_{ij}$ is the character that carries $i$ to $j$, thus multiplying
+$A$ by itself gives us a new matrix with all words of length two, given as input, and $i$ is the starting node that would carry $i$ to $j$ in two steps. In the formula above, we see that we
+are trying to go through all nodes $k \in \{1, 2, 3, \dots n\}$
 to end up in $j$ and then uniting them together with addition.\\
 Generally, we can have a matrix $A \in \fps{B}^{n \times n}$
 risen to the power of $n \in \mathbb{N}$:
@@ -716,27 +708,24 @@ risen to the power of $n \in \mathbb{N}$:
     \sum_{k_2=1}^{n}\dots \sum_{k_{n-1}=1}^n 
     a_{ik_1}a_{k_1k_2}a_{k_2k_3}\dots a_{k_{n-1}j} \\
 \]
-This is not beatiful at all, but the idea stays exactly the same: Now
-we have in $(A^n)_{ij}$ all words that carry $i$ to $j$ in n steps,
-brute forcing throug all possible paths. Now to get all possible paths
-of arbitrary length we just add all together:
+This is not beautiful at all, but the idea stays exactly the same: now we have in $(A^n)_{ij}$ all words that carry $i$ to $j$ in n steps, brute forcing through all possible paths. Now to get all possible paths of arbitrary length, we just add them all together:
 \[
   E_n + A + A^2 \dots = \sum_{i \in \mathbb{N}} A^i = A^*
 \]
-Yielding, that in $(A^*)_{ij}$ are all possible words, carrying
-the automata from $i$ to $j$. If $i$ is the starting node and $j$
-the accepting node, the accepting language of the automata is just
-$(A^*)_{ij}$. That means, $A^*$ stores all accepting languages of 
-an automata, with transition matrix $A$.
+Yielding, that in $(A^*)_{ij}$ are all possible words, carrying the automata from $i$ to $j$. If $i$ is the starting node and $j$ the accepting node, the accepting language of the automata is just
+$(A^*)_{ij}$. That means, $A^*$ stores all accepting languages of  an automaton, with transition matrix $A$.
 With those important properties, we can now move on to the first prove.
+\\ 
+\pagebreak
+\\
 \begin{proof}
   \begin{center}
     {\bf claim: All finite automata only accept rational languages.}
   \end{center}
   Let $A \in \fps{B}^{n \times n}$ be a transition function of an
-  arbitrary finite automata. $A$ is rational, because the transition
+  arbitrary finite automata. $A$ is rational because the transition
   function consists only out of characters. Since $A^*$ stores every accepting
-  language of that finite autotamata, for every possible initial
+  language of that finite automata, for every possible initial
   state and accepting state, we just need to prove that all entries
   in $A^*$ are rational languages.
   We will prove this statement via induction over the number of 
@@ -746,16 +735,15 @@ With those important properties, we can now move on to the first prove.
   \[
     A \in \fps{B}^{1 \times 1} = \fps{B}.
   \]
-  We know that $A \in \fps{B}$ is rational, but that also means
-  that $A^*$ is per definition rational, which finishes the base case.\\
-  {\bf Inudction step: $n \to n+1$}\\
-  We can assume the claim holds for $n \in \mathbb{N}$ and need to prove it
-also holds for $n+1$. we can assume that a transition matrix with dimenion 
-$n \times n$ has only rational entries. \\
+We know that $A \in \fps{B}$ is rational, but that also means  that $A^*$ is per definition rational, which finishes the base case.\\
+{\bf Induction step: $n \to n+1$}\\
+We can assume the claim holds for $n \in \mathbb{N}$ and need to prove it
+also holds for $n+1$. Thus, we can assume that a transition matrix with
+dimension $n \times n$ has only rational entries. \\
 Let $A \in \fps{B}^{(n+1) \times (n+1)}$ be a transition function of an
 arbitrary finite automata. 
-Our goal is it to reduce the matrix $A$ by one dimension. In order to do
-that we devide the matrix in four blocks:
+Our goal is to reduce the square matrix $A$ by one dimension.
+In order to do that, we divide the matrix into four blocks:
 \[
   A = 
   \begin{pmatrix}
@@ -781,99 +769,270 @@ visually:
   \end{tikzpicture}
 \end{center}
 We can interpret our block matrix as a transition matrix with four entries,
-thus having two states. Our new two states consists of the original states
-in the following way:
+thus having two states. Our new two states consist of the original states in the following way:
 \[
   \mathbf{1} = \{1\} \text{ and } \mathbf{2} = \{2,3,4, \dots n + 1\}
 \]
-
-  
-
-
-\end{proof}
-  
-
-
-\section{Maximum Gap Lemma}
-\section{Not all Formal languages are regular}
-\section{Kleene Schützenberg theorem and weigthed automatas}
-\section{Conclusion}
-
-
-\subsection{Citation} 
-\label{sec:cit}
-
-The citation method follows the author-year system. Place reference is in the text, footnotes should only be used for explanations and comments. The following notes are taken from the \emph{language} bibliography template from \url{ron.artstein.org}:\newline
-
-\noindent
-The \emph{Language} style sheet makes a distinction between two kinds of in-text citations: citing a work and citing an author.
-\begin{itemize}
-\item Citing a work:
-  \begin{itemize}
-    \setlength{\itemsep}{0pt}
-    \setlength{\parsep}{0pt}
-  \item Two authors are joined by an ampersand (\&).
-  \item More than two authors are abbreviated with \emph{et al.}
-  \item No parentheses are placed around the year (though parentheses
-    may contain the whole citation). 
-  \end{itemize}
-\item Citing an author:
-  \begin{itemize}
-    \setlength{\itemsep}{0pt}
-    \setlength{\parsep}{0pt}
-  \item Two authors are joined by \emph{and}.
-  \item More than two authors are abbreviated with \emph{and colleagues}.
-  \item The year is surrounded by parentheses (with page numbers, if
-    present).
-  \end{itemize} 
-\end{itemize}
-To provide for both kinds of citations, \verb+language.bst+ capitalizes on the fact that \verb+natbib+ citation commands come in
-two flavors. In a typical style compatible with \verb+natbib+, ordinary commands such as \verb+\citet+ and \verb+\citep+ produce short
-citations abbreviated with \emph{et al.}, whereas starred commands such as \verb+\citet*+ and \verb+\citep*+ produce a citation with a
-full author list. Since \emph{Language} does not require citations with full authors, the style \verb+language.bst+ repurposes the starred commands to be used for citing the author. The following table shows how the \verb+natbib+ citation commands work with \verb+language.bst+.
-\begin{center}
-  \begin{tabular}{lll}
-    \toprule
-    Command & Two authors & More than two authors \\
-    \midrule
-    \verb+\citet+ & \citet{hale} & \citet{sprouse} \\
-    \verb+\citet*+ & \citet*{hale} & \citet*{sprouse} \\
-    \addlinespace
-    \verb+\citep+ & \citep{hale} & \citep{sprouse} \\
-    \verb+\citep*+ & \citep*{hale} & \citep*{sprouse} \\
-    \addlinespace
-    \verb+\citealt+ & \citealt{hale} & \citealt{sprouse} \\
-    \verb+\citealt*+ & \citealt*{hale} & \citealt*{sprouse} \\
-    \addlinespace
-    \verb+\citealp+ & \citealp{hale} & \citealp{sprouse} \\
-    \verb+\citealp*+ & \citealp*{hale} & \citealp*{sprouse} \\
-    \addlinespace
-    \verb+\citeauthor+ & \citeauthor{hale} & \citeauthor{sprouse} \\
-    \verb+\citeauthor*+ & \citeauthor*{hale} & \citeauthor*{sprouse} \\
-    \verb+\citefullauthor+ & \citefullauthor{hale} & \citefullauthor{sprouse} \\
-    \bottomrule
-  \end{tabular}
-\end{center}
-Authors of \emph{Language} articles would typically use \verb+\citet*+, \verb+\citep+, \verb+\citealt+ and \verb+\citeauthor*+, though they
-could use any of the above commands. There is no command for giving a full list of authors.
-
-\subsection{Bibliography}
-The bibliography of this template includes the references of the \emph{language} stylesheet as a sample bibliography.
-
-
+\\
 \pagebreak
+\\
+We can visulize the resulting automata:
+\begin{center}
+  \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+    \node[state] (q_0)   {$\mathbf{1}$}; 
+    \node[state](q_1) [right=of q_0] {$\mathbf{2}$};
+      \path[->] 
+      (q_0) edge[bend left, above]  node {A(1,2)} (q_1)
+            edge [loop above] node {A(1,1)} ()
+      (q_1) edge[bend left, below]  node {A(2,1)} (q_0)
+            edge [loop above] node {A(2,2)} ();
+  \end{tikzpicture}
+\end{center}
+Now, instead of calculating $A^*$ with algebra, we can also just look
+at the automata and ponder what all possible paths are for $1 \to 1$,
+$1 \to 2$, $2 \to 1$, and $2 \to 2$. Note that the automaton is symmetrical, consequently we just need to find paths for $1 \to 1$ and $1 \to 2$.
+Starting with $1 \to 1$, we want to find all possible paths from state
+one to one with an arbitrary length. Starting at state one, we can either
+directly loop back to one, or we transition to two, then loop in two 
+arbitrary amount of times and then transition back to one. This whole
+process can also be repeated an arbitrary amount of times, yielding the
+following formula:
+\[
+  A(1,1)^* = (A(1,1) + A(1,2)A(2,2)^*A(2,1))^*
+\]
+Now, because of symmetry:
+\[
+  A(2,2)^* = (A(2,2) + A(2,1)A(1,1)^*A(1,2))^*
+\]
+For $1 \to 2$, we can loop in one and then transition to two, in two 
+We can either loop there for an arbitrary amount of time or transition to one loop in one an arbitrary amount of times and then go back to
+two. This process can also be repeated an arbitrary amount of times.
+\[
+  A(1,2)^* = A(1,1)^*A(1,2)(A(2,2)^* + A(2,1)A(1,1)^*A(1,2))^*
+\]
+Again because of symmetry:
+\[
+  A(2,1)^* = A(2,2)^*A(2,1)(A(1,1)^* + A(1,2)A(2,2)^*A(2,1))^*
+\]
+The transition matrix $A^*$ has only rational entries, if all blocks
+matrices only have rational entries. The block matrices consist of, 
+just entries of $A$ that are rational, namely $A(1,1)$, $A(2,2)$, $A(1,2)$
+and $A(2,1)$. As well as square matrices, which have
+a lower dimension than $n+1$, thus the kleene stars of those are also 
+rational because of the induction assumption, namely 
+$A(2,2)^*$, $A(1,1)^*$, $(A(1,1)^* + A(1,2)A(2,2)^*A(2,1))^*$, 
+$(A(2,2)^* + A(2,1)A(1,1)^*A(1,2))^*$, $(A(2,2) + A(2,1)A(1,1)^*A(1,2))^*$
+and $(A(1,1) + A(1,2)A(2,2)^*A(2,1))^*$. Thus, $A^*$ has only rational
+entries, which finishes the proof.
+\end{proof}\\
+\pagebreak
+\\
+Now, we have to prove the other direction:
+\begin{proof}
+  \begin{center}
+    {\bf claim: Every rational language can be generated 
+    by an finite automata.}
+  \end{center}
+    Previously in this chapter, we defined rational language inductively,  naturally we want to prove the claim with structural induction. That  means we need to construct an automata generating...
+  \begin{enumerate}
+    \item ... a language with one letter.
+    \item ... the product of two languages.
+    \item ... the sum of two languages.
+    \item ... the kleene star of one language.
+  \end{enumerate}
+  In the following, all constructed automata will have the first
+  state as initial state and all states as accepting state.
+  Thus, the sum of the first row of the transition
+  matrix $A^*$ will be the accepted language.
+  We begin to prove that {\bf (1)} there are an automaton accepting a
+  single letter.\\
+  Let $\Sigma$ be an arbitrary but fixed alphabet and 
+  $\alpha \in \Sigma$ a letter, then:
+  \[
+    A = 
+    \begin{pmatrix}
+      \epsilon & \alpha\\
+      0        & \epsilon
+    \end{pmatrix}
+  \]
+    Looking at the automata and ponder again, like in the previous proof, we see that $A = A^*$.
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+      \node[state] (q_0)   {$1$}; 
+      \node[state](q_1) [right=of q_0] {$2$};
+        \path[->] 
+        (q_0) edge[bend left, above]  node {$\alpha$} (q_1)
+              edge [loop above] node {$\epsilon$} ()
+        (q_1) edge [loop above] node {$\epsilon$} ();
+    \end{tikzpicture}
+  \end{center}
+  With our convention,
+  we get the accepted language $L = \epsilon + \alpha$, thus $\alpha \in L$.\\
+  Next, we will look at the sum of two rational language {\bf (2)}. Let $A,B \in \fps{B}^{n \times n}$ transition matrices of rational languages, then
+  \[
+    B = 
+    \begin{pmatrix}
+      \epsilon & A_1 & B_1 \\
+      0        & A   & 0 \\
+      0        & 0   & B
+    \end{pmatrix}
+  \]
+  where 
+  \[
+    A_1 = (a_{11}, a_{12}, a_{13}, \dots a_{1n})
+    \hspace{0.2cm} \text{and} \hspace{0.2cm}
+    B_1 = (b_{11}, b_{12}, b_{13}, \dots b_{1n}).
+  \]
+  \\
+  \pagebreak
+  \\
+  Depicting the automata: 
+  \begin{center}
+    \begin{tikzpicture}[shorten >=1pt,node distance=2cm,on grid,auto] 
+      \node[state] (q_0)   {$1$}; 
+      \node[state](q_1) [right=of q_0] {$2$};
+      \node[state](q_2) [below=of q_0] {$3$};
+        \path[->] 
+        (q_0) edge[bend left, above]  node {$A_1$} (q_1)
+              edge [loop above] node {$\epsilon$} ()
+              edge [] node {$B_1$} (q_2)
+        (q_1) edge [loop above] node {$A$} ()
+        (q_2) edge [loop right] node {$B$}();
 
-\microtypesetup{protrusion=false}
-\listoffigures{}
-\listoftables{}
-\microtypesetup{protrusion=true}
+    \end{tikzpicture}
+  \end{center}
+  With the same reasoning as above we get:
+  \[
+    B^* = 
+    \begin{pmatrix}
+      \epsilon & A_1A^* & B_1B^*\\
+      0        & A^*    & 0 \\
+      0        & 0      & B^*
+    \end{pmatrix}
+  \]
+  where 
+  \[
+    A_1A^* = (\sum_{k=1}^{n}a_{1k}a^*_{k1}, \sum_{k=1}^{n}a_{1k}a^*_{k2},
+        \sum_{k=1}^{n}a_{1k}a^*_{k3}, \dots \sum_{k=1}^{n}a_{1k}a^*_{kn})
+        = A\hat{}_1
+  \]
+  and 
+  \[
+    B_1B^* = (\sum_{k=1}^{n}b_{1k}b^*_{k1}, \sum_{k=1}^{n}b_{1k}b^*_{k2},
+        \sum_{k=1}^{n}b_{1k}b^*_{k3}, \dots \sum_{k=1}^{n}b_{1k}b^*_{kn})
+        = B{\mathchar"5E}_1.
+  \]
+  Yielding the first row sum $L = \epsilon + A\hat{}_1 + B{\mathchar"5E}_1$,
+  which is exactly the sum of the accepted language of $A$ and $B$.\\
+  Next, we will look at the product of two rational language {\bf (3)}.
+  Let $p,q\in \mathbb{N}$, $A \in \fps{B}^{p \times p}$ and $B \in \fps{B}^{q \times q}$ transition matrices of rational
+  languages, then
+  \[
+    C = 
+    \begin{pmatrix}
+      A & PQ \\
+      0 & B
+    \end{pmatrix}
+  \]
+  where
+  \[ P \in \fps{B}^{p \times q}, \hspace{0.2cm}Q \in \fps{B}^{q \times p}\]
+  \[
+    P_{ij} = 
+    \begin{cases}
+      \epsilon & \text{if } \hspace{0.2cm} j = 1\\
+      0        & \text{otherwise}
+    \end{cases}
+    , \hspace{1cm}
+    Q_{ij} = 
+    \begin{cases}
+      \epsilon & \text{if } \hspace{0.2cm} j = 1 \land i = 1\\
+      0        & \text{otherwise}
+    \end{cases}
+  \]
+  \\
+  \pagebreak
+  \\
+  Using the formula of the last proof we get:
+  \[
+    C^* = 
+    \begin{pmatrix}
+      A^* & A^*PQB^* \\
+      0 & B^*
+    \end{pmatrix}
+  \]
+  where
+  \[
+    (A^*P)_{ij} = 
+    \begin{cases}
+      \sum_{k=1}^{p} a^*_{1k}p_{k1} =  \sum_{k=1}^{p} a^*_{1k} 
+        & \text{if } \hspace{0.2cm} i = 1 \land j = 1\\
+      \sum_{k=1}^{p} a^*_{ik}p_{k1} =  \sum_{k=1}^{p} a^*_{ik} 
+        & \text{if } \hspace{0.2cm} i > 1\land j = 1\\
+      0 & \text{otherwise}
+    \end{cases}
+  \]
+  and 
+  \[
+    (QB^*)_{ij} = 
+    \begin{cases}
+      \sum_{k=1}^{p} q_{1k}b^*_{kj} = b^*_{1j}
+        & \text{if } \hspace{0.2cm} i = 1\\
+      0  & \text{otherwise}
+    \end{cases}
+  \]
+  We are only interested in the first row:
+  \[
+    (A^*PQB^*)_{1j} = \sum_{k=1}^{q} (A^*P)_{1k}(QB^*)_{kj} 
+      = (A^*P)_{11}(QB^*)_{1j}
+      = (\sum_{k=1}^{p} a^*_{1k})b^*_{1j}
+  \]
+  Summing the whole row of $C^*$ together to get the accepted language: 
 
-\clearpage
-\printglossaries
+  \[
+    L = (\sum_{k=1}^{p} a^*_{1k}) + \sum_{j=1}^q (\sum_{k=1}^{p} a^*_{1k})b^*_{1j}
+      = (\sum_{k=1}^{p} a^*_{1k}) + (\sum_{k=1}^{p} a^*_{1k}) (\sum_{j=1}^q b^*_{1j})
+      = (\sum_{k=1}^{p} (A^*_1)_k) + (\sum_{k=1}^{p} (A^*_1)_k) (\sum_{j=1}^q (B^*_1)_j)
+  \]
+  We get the accepted language of $A$ times the accepted language of $B$.\\
+  Last but not least, we need to prove that there exists an automaton which
+  gives us the kleene star of a rational language. Let 
+  $p,q\in \mathbb{N}$ and $A \in \fps{B}^{p \times p}$
+  a transition matrix of a rational language 
+  and  $P \in \fps{B}^{p \times q}$, $Q \in \fps{B}^{q \times p}$
+  like above, then
+  \[
+    D := 
+    \begin{pmatrix}
+      E_p &  E_p\\
+      0        & A + PQ
+    \end{pmatrix}
+  \]
+  Again, with the formula of the former proof, we get:
+  \[
+    D^* = 
+    \begin{pmatrix}
+      E_p &  (A + PQ)^*\\
+      0   &  (A + PQ)^*
+    \end{pmatrix}
+  \]
+  The element in the upper right corner can be rewritten:
+  \[
+    (A+PQ)^* = A^*(PQA^*)^*
+  \]
+  The sum of the elements in the first row yields $L^*$.
+\end{proof}
+\section{Conclusion}
+The former prove can be modified to also hold for formal power series in
+a semi-ring $\fps{S}$ (ref. [\cite{Algebra}]). 
+This theorem is called kleene-schützberg theorem (ref. [\cite{Algebra}]) and
+it makes a connection between formal power series and weighted automata. 
+In summary, formal power series are really powerful, but also quite
+unintuitive at first. For futher reading my recommendation is the master thesis
+of Laura Wirth (ref. [\cite{master}]).
 \pagebreak
 \addcontentsline{toc}{section}{Bibliography}
 \pagestyle{fancy}
 \bibliographystyle{language-dt} 
 \bibliography{bibliography} 
-\nocite{*}
+%\nocite{*}
 \end{document}
